@@ -1,8 +1,12 @@
+// Enhanced ReliefPage with 2x2 grid navigation boxes
+
 import React, { useState } from "react";
 import { db } from "../../Context/Firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { useFirebase } from "../../Context/Firebase";
-
+import { motion } from "framer-motion";
+import { CheckCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 const DayActivity = ({ day }) => {
   const firebase = useFirebase();
   const user = firebase?.user;
@@ -10,6 +14,35 @@ const DayActivity = ({ day }) => {
   const [journal, setJournal] = useState("");
   const [loading, setLoading] = useState(false);
   const isDay1 = day === 1;
+const dayActivities = {
+  1: {
+    title: "Start Small, Breathe Deep",
+    quote: "Breathe. You’re doing just fine.",
+    tasks: [
+      "Take 3 deep breaths",
+      "Play calming music",
+      "Journal how you are feeling today",
+    ],
+  },
+  2: {
+    title: "Express Yourself",
+    quote: "Feelings are just visitors. Let them come and go.",
+    tasks: [
+      "Draw your current mood",
+      "Listen to a soothing bhajan",
+      "Write 3 thoughts you had today",
+    ],
+  },
+  3: {
+    title: "Healing Sounds",
+    quote: "Music washes away from the soul the dust of everyday life.",
+    tasks: [
+      "Listen to rain or forest sound",
+      "Light yoga stretch",
+      "Mood check-in (0-10)",
+    ],
+  },
+};
 
   const handleSubmit = async () => {
     if (!user) return alert("Please login");
