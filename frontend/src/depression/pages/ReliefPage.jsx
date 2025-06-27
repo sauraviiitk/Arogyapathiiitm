@@ -1,111 +1,104 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { CheckCircle } from "lucide-react";
+import { db } from "../../Context/Firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { useFirebase } from "../../Context/Firebase";
 
-// 21-Day Tracker Data (extend as needed)
-const dayActivities = {
-  1: {
-    title: "Start Small, Breathe Deep",
-    quote: "Breathe. You’re doing just fine.",
-    tasks: [
-      "Take 3 deep breaths",
-      "Play calming music",
-      "Journal how you are feeling today",
-    ],
-  },
-  2: {
-    title: "Express Yourself",
-    quote: "Feelings are just visitors. Let them come and go.",
-    tasks: [
-      "Draw your current mood",
-      "Listen to a soothing bhajan",
-      "Write 3 thoughts you had today",
-    ],
-  },
-  3: {
-    title: "Healing Sounds",
-    quote: "Music washes away from the soul the dust of everyday life.",
-    tasks: [
-      "Listen to rain or forest sound",
-      "Light yoga stretch",
-      "Mood check-in (0-10)",
-    ],
-  },
-  // You can add more up to 21...
-};
+const DayActivity = ({ day }) => {
+  const firebase = useFirebase();
+  const user = firebase?.user;
+  const [mood, setMood] = useState(5);
+  const [journal, setJournal] = useState("");
+  const [loading, setLoading] = useState(false);
+  const isDay1 = day === 1;
 
-const totalDays = 21;
+  const handleSubmit = async () => {
+    if (!user) return alert("Please login");
+    setLoading(true);
+    try {
+      await setDoc(
+        doc(db, "patients", user.uid, "dayProgress", "day1"),
+        {
+          mood,
+          journal,
+          completed: true,
+          timestamp: new Date(),
+        }
+      );
+      alert("Day 1 Saved 🎉");
+    } catch (err) {
+      console.error(err);
+      alert("Error saving Day 1");
+    }
+    setLoading(false);
+  };
 
-const ReliefPage = () => {
-  const [activeDay, setActiveDay] = useState(1); // default Day 1
+  if (!isDay1) return <div className="text-gray-500">Day {day} content coming soon!</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4 flex flex-col items-center">
-      {/* Curved Path with Dots */}
-      <div className="w-full overflow-x-auto mb-8 scrollbar-hide">
-        <svg viewBox="0 0 1200 250" className="w-[1200px] h-[200px] mx-auto">
-          <path
-            d="M 50 200 Q 300 50 600 200 Q 900 350 1150 100"
-            stroke="#d1d5db"
-            strokeWidth="4"
-            fill="none"
-          />
-          {[...Array(totalDays)].map((_, index) => {
-            const x = 50 + (index * (1100 / (totalDays - 1)));
-            const y = 200 - Math.sin((index / (totalDays - 1)) * Math.PI) * 150;
-            const isActive = index + 1 === activeDay;
-            return (
-              <g key={index}>
-                <circle
-                  cx={x}
-                  cy={y}
-                  r="12"
-                  fill={isActive ? "#6366f1" : "#a1a1aa"}
-                  className="cursor-pointer transition-all"
-                  onClick={() => setActiveDay(index + 1)}
-                />
-                <text
-                  x={x}
-                  y={y + 30}
-                  fontSize="12"
-                  textAnchor="middle"
-                  fill="#4b5563"
-                >
-                  Day {index + 1}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
+    <div className="bg-white shadow-2xl rounded-2xl p-6 w-full max-w-2xl space-y-4">
+      <h2 className="text-2xl font-bold text-indigo-600 text-center">
+        Day 1: Start Small, Breathe Deep
+      </h2>
+
+      <p className="italic text-gray-600 text-center">
+        “Breathe. You’re doing just fine.”
+      </p>
+
+      {/* Mood Tracker */}
+      <div>
+        <label className="block font-medium text-gray-700 mb-1">Your Mood (0 - 😞 to 10 - 😄)</label>
+        <input
+          type="range"
+          min={0}
+          max={10}
+          value={mood}
+          onChange={(e) => setMood(Number(e.target.value))}
+          className="w-full"
+        />
+        <div className="text-center text-sm text-gray-600 mt-1">Mood: {mood}</div>
       </div>
 
-      {/* Active Day Activity Card */}
-      <motion.div
-        key={activeDay}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white shadow-2xl rounded-2xl p-6 w-full max-w-2xl space-y-4"
+      {/* Breathing Guide (Optional GIF/Animation) */}
+      <div className="text-center">
+        <p className="text-lg font-semibold mb-2">Follow this Breathing:</p>
+        <img
+          src="https://media.tenor.com/B8WgDE7GgYoAAAAC/breathe-relax.gif"
+          alt="Breathing GIF"
+          className="mx-auto w-48 h-48 rounded-xl shadow"
+        />
+      </div>
+
+      {/* Journal Input */}
+      <div>
+        <label className="block font-medium text-gray-700 mb-1">How are you feeling right now?</label>
+        <textarea
+          value={journal}
+          onChange={(e) => setJournal(e.target.value)}
+          rows={4}
+          className="w-full p-3 rounded-lg border border-gray-300 shadow-sm"
+          placeholder="Write your feelings..."
+        />
+      </div>
+
+      {/* Music Play */}
+      <div className="text-center">
+        <p className="text-lg font-semibold mb-2">Play Calming Sound</p>
+        <audio controls className="mx-auto">
+          <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+
+      {/* Submit Button */}
+      <button
+        onClick={handleSubmit}
+        disabled={loading}
+        className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition"
       >
-        <h2 className="text-2xl font-bold text-indigo-600 text-center">
-          {dayActivities[activeDay]?.title || "Activity for Today"}
-        </h2>
-        <p className="italic text-gray-600 text-center">
-          “{dayActivities[activeDay]?.quote || "Stay strong, stay hopeful."}”
-        </p>
-        <ul className="space-y-3">
-          {dayActivities[activeDay]?.tasks?.map((task, idx) => (
-            <li
-              key={idx}
-              className="flex items-start text-gray-700 bg-indigo-50 px-4 py-2 rounded-xl"
-            >
-              <CheckCircle className="text-green-500 w-5 h-5 mr-2 mt-1" />
-              <span>{task}</span>
-            </li>
-          ))}
-        </ul>
-      </motion.div>
+        {loading ? "Saving..." : "I'm Done for Today ✅"}
+      </button>
     </div>
   );
 };
 
-export default ReliefPage;
+export default DayActivity;
