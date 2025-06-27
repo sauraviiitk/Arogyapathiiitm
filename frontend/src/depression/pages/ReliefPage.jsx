@@ -1,8 +1,10 @@
+// Enhanced ReliefPage with 2x2 grid navigation boxes
+
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-// 21-Day Tracker Data (extend as needed)
 const dayActivities = {
   1: {
     title: "Start Small, Breathe Deep",
@@ -31,18 +33,18 @@ const dayActivities = {
       "Mood check-in (0-10)",
     ],
   },
-  // You can add more up to 21...
 };
 
 const totalDays = 21;
 
 const ReliefPage = () => {
-  const [activeDay, setActiveDay] = useState(1); // default Day 1
+  const [activeDay, setActiveDay] = useState(1);
+  const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4 flex flex-col items-center">
-      {/* Curved Path with Dots */}
-      <div className="w-full overflow-x-auto mb-8 scrollbar-hide">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-4 flex flex-col items-center space-y-8">
+      {/* Tracker Path */}
+      <div className="w-full overflow-x-auto mb-4 scrollbar-hide">
         <svg viewBox="0 0 1200 250" className="w-[1200px] h-[200px] mx-auto">
           <path
             d="M 50 200 Q 300 50 600 200 Q 900 350 1150 100"
@@ -79,7 +81,7 @@ const ReliefPage = () => {
         </svg>
       </div>
 
-      {/* Active Day Activity Card */}
+      {/* Day Activity Card */}
       <motion.div
         key={activeDay}
         initial={{ opacity: 0, y: 20 }}
@@ -104,6 +106,61 @@ const ReliefPage = () => {
           ))}
         </ul>
       </motion.div>
+
+      {/* 2x2 Grid Navigation Tools */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mt-6">
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/letter")}
+        >
+          <h3 className="text-xl font-semibold text-indigo-700 mb-2">
+            Letter to Future Me
+          </h3>
+          <p className="text-gray-600">
+            Write a letter to your future self – what do you hope, dream, or fear?
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/time-machine")}
+        >
+          <h3 className="text-xl font-semibold text-purple-700 mb-2">
+            Emotional Time Machine
+          </h3>
+          <p className="text-gray-600">
+            Revisit a past emotion and observe your growth.
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/reframe")}
+        >
+          <h3 className="text-xl font-semibold text-rose-700 mb-2">
+            Reframe a Negative Thought
+          </h3>
+          <p className="text-gray-600">
+            Challenge and positively reframe something you’re struggling with.
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/mood-ai")}
+        >
+          <h3 className="text-xl font-semibold text-green-700 mb-2">
+            Mood Check-in + AI Reflection
+          </h3>
+          <p className="text-gray-600">
+            Track your mood and get thoughtful responses from an AI guide.
+          </p>
+        </motion.div>
+      </div>
     </div>
   );
 };
