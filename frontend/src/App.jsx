@@ -1,15 +1,29 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Home from './depression/pages/Home'
+import DepressionTest from './depression/pages/Depressiontest'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-     <h1 className='bg-black text-white'>helloytjtu</h1>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/home" element={<Home/>} />
+        <Route
+          path="/"
+          element={<Home/>}
+        />
+        <Route
+          path="/test"
+          element={<DepressionTest/>}
+        />
+         <Route
+          path="/relief-plan"
+          element={<DepressionTest/>}
+        />
+      </Routes>
+    </Router>
   )
 }
 
