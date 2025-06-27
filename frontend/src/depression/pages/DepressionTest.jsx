@@ -1,8 +1,8 @@
-// Enhanced DepressionTest Component with advanced UI using Tailwind + Framer Motion
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { db, auth } from '../../Context/Firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 
 const questions = [
   "I feel sad or down most of the day.",
@@ -30,7 +30,7 @@ function DepressionTest() {
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
 
-  const handleAnswer = (value) => {
+  const handleAnswer = async (value) => {
     const newAnswers = [...answers];
     newAnswers[currentQ] = value;
     setAnswers(newAnswers);
@@ -39,6 +39,8 @@ function DepressionTest() {
       setCurrentQ(currentQ + 1);
     } else {
       setSubmitted(true);
+      const total = newAnswers.reduce((a, b) => a + b, 0);
+      await saveScoreToFirebase(total); // 👉 save score on final question
     }
   };
 
@@ -46,6 +48,23 @@ function DepressionTest() {
     if (total <= 10) return "Mild Depression";
     if (total <= 20) return "Moderate Depression";
     return "Severe Depression";
+  };
+
+  const saveScoreToFirebase = async (totalScore) => {
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        const docRef = doc(db, "Score-Depression", user.uid);
+        await updateDoc(docRef, {
+          score: totalScore,
+          completedAt: new Date(),
+          level: getLevel(totalScore)
+        });
+        console.log("✅ Score updated in Firebase");
+      } catch (error) {
+        console.error("❌ Error saving score:", error);
+      }
+    }
   };
 
   const totalScore = answers.reduce((a, b) => a + b, 0);
@@ -125,7 +144,7 @@ function DepressionTest() {
                   onClick={() => navigate('/relief-plan')}
                   className="bg-green-600 text-white px-6 py-3 rounded-xl text-lg shadow-md hover:bg-green-700"
                 >
-                  Try our 21-Day Depression Relief Plan
+                  Try our 10-Day Depression Relief Plan
                 </motion.button>
               </div>
             </motion.div>
