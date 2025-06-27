@@ -38,6 +38,10 @@ import ChatApp from './components/ChatApp'
 import PatientReports from './components/PatientReports'
 import MedicalRecord from './components/MedicalRecord'
 import Canva from './components/Canva'
+import Home from './depression/pages/Home'
+import DepressionTest from './depression/pages/Depressiontest'
+import ReliefPage from './depression/pages/ReliefPage'
+
 function App() {
   
 
@@ -66,6 +70,17 @@ function App() {
         <Route path='/doctor-patient-reports' element={<PatientReports/>}/>
         <Route path='/medicalRecordOfPatient' element={<MedicalRecord/>}/>
         <Route  path='/canva' element={<Canva/>}/>
+        <Route path="/home-Depression" element={<Home/>} />
+        <Route
+          path="/test"
+          element={<DepressionTest/>}
+        />
+         <Route
+          path="/relief-plan"
+          element={
+            <ReliefPage/>
+          }
+        />
         {/* other routes... */}
       </Routes>
      <ToastContainer/>
