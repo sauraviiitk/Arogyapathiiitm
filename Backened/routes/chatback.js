@@ -61,7 +61,7 @@ If your symptoms persist beyond 10 days or worsen, please consult a healthcare p
 ---
 `;
 
-router.post("/chat", async (req, res) => {
+router.post("/chatback", async (req, res) => {
   const { message } = req.body;
 
   if (!message) {
