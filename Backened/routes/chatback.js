@@ -1,16 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const OpenAI = require("openai");
+const fetch = (...args) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
-// ✅ Initialize OpenRouter
-const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: "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", // Don't expose this in public code
-  defaultHeaders: {
-    "HTTP-Referer": "http://localhost:5173", // Replace with your actual frontend URL
-    "X-Title": "Arogyapath Assistant",
-  },
-});
+// 🔐 Replace with your Gemini API key (keep private in prod)
+const GEMINI_API_KEY = "AIzaSyAl1V8RgeQKSrtV43A70vtHYkACwQ1yb7s";
 
 // 🧠 Arogyapath system prompt
 const SYSTEM_PROMPT = `
@@ -65,10 +59,7 @@ Hello! Welcome to Arogyapath Wellness Center. How can I assist you with your hea
 If your symptoms persist beyond 10 days or worsen, please consult a healthcare professional.
 
 ---
-
-Always strive to provide a helpful, professional, and human-like conversational experience, representing the highest standards of Arogyapath Wellness Center.
 `;
-
 
 router.post("/chat", async (req, res) => {
   const { message } = req.body;
@@ -78,24 +69,35 @@ router.post("/chat", async (req, res) => {
   }
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: "openai/gpt-3.5-turbo-0613", // Or use 'gpt-4o'
-      messages: [
-        {
-          role: "system",
-          content: SYSTEM_PROMPT,
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          role: "user",
-          content: message,
-        },
-      ],
-    });
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                { text: SYSTEM_PROMPT },
+                { text: message },
+              ],
+            },
+          ],
+        }),
+      }
+    );
 
-    const reply = completion.choices?.[0]?.message?.content || "⚠️ Arogyapath couldn't respond. Please try again.";
+    const data = await response.json();
+
+    const reply =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "⚠️ Arogyapath couldn't respond. Please try again.";
+
     res.json({ reply });
   } catch (error) {
-    console.error("❌ OpenRouter Error:", error.message);
+    console.error("❌ Gemini API Error:", error.message);
     res.status(500).json({ error: "Arogyapath service failed. Try again later." });
   }
 });
