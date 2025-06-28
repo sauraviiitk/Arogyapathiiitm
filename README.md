@@ -1,4 +1,4 @@
-## **Arogyapath – Personalized Mental Wellness & Healing Platform** ##
+## **Arogyapath** ##
 Arogyapath is a holistic mental health platform focused on patient care, offering features like an AI-powered depression test, a guided 10-day recovery plan, spiritual healing through mantras, bhajans, and yoga, mood check AI, Gemini-powered thought reframing, a relaxing canvas drawing tool, and Letter to Future Me journaling.
 
 Patients can also use an Emotional Time Machine, get medicine reminders via email, and join our real-time community chat – Together We Rise. On the doctor side, professionals can manage their profiles, view connected patients, access shared history, and use a built-in prescription analyzer.
