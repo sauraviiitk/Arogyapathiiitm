@@ -51,6 +51,7 @@ import SendMessage from './depression/community/PostInput'
 import LiveMessages from './depression/community/LiveFeed'
 import MessageSender from './depression/community/PostInput'
 import MessageList from './depression/community/LiveFeed'
+import CommunityFeed from './depression/community/PostInput'
 
 function App() {
   
@@ -121,7 +122,7 @@ function App() {
         <Route
           path="/community"
           element={
-            <MessageSender/>
+            <CommunityFeed/>
           }
           
         />
