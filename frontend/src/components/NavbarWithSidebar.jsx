@@ -24,6 +24,7 @@ import { db } from "../Context/Firebase";
 import { Home } from "lucide-react";
 import { BellPlus } from "lucide-react";
 import { query, where, getDocs, collection } from "firebase/firestore";
+import { PenTool } from "lucide-react"; 
 // ... imports remain the same
 
 const NavbarWithSidebar = () => {
@@ -355,7 +356,7 @@ useEffect(() => {
            <Activity size={24} className="text-blue-600" />
            Health Tracker
          </button>
-         <button
+         {/* <button
            onClick={() => {
              navigate("/canva");
              setSidebarOpen(false);
@@ -364,7 +365,18 @@ useEffect(() => {
          >
            <Activity size={24} className="text-blue-600" />
            Canvas
-         </button>
+         </button> */}
+         <button
+  onClick={() => {
+    navigate("/canva");
+    setSidebarOpen(false);
+  }}
+  className="flex items-center gap-4 p-4 rounded-md bg-white hover:bg-blue-100 shadow-md text-gray-700 font-semibold text-lg"
+>
+  <PenTool size={24} className="text-blue-600" />
+  Canvas
+</button>
+
          
          <button
            onClick={() => {

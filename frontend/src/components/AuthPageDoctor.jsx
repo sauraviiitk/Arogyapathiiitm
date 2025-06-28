@@ -463,7 +463,7 @@ function AuthPageDoctor() {
       {/* Sidebar Image */}
       <div className="hidden md:flex w-full md:w-1/2 justify-center items-center bg-gradient-to-br from-blue-100 to-indigo-200">
         <img
-          src="/images/doct.png"
+          src="/images/doctor.png"
           alt="Doctor Illustration"
           className="object-cover w-full h-full max-h-[1500px]"
         />
