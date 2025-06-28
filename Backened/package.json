@@ -10,8 +10,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "install": "^0.13.0",
     "node-cron": "^4.1.1",
     "nodemailer": "^7.0.3",
-    "openai": "^5.8.2"
+    "npm": "^11.4.2",
+    "openai": "^5.8.2",
+    "ws": "^8.18.2"
   }
 }
