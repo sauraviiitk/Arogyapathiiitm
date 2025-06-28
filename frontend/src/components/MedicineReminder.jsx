@@ -77,7 +77,7 @@ useEffect(() => {
   setForm({ name: "", dosage: "", time: "", notes: "" });
 
   try {
-    const res = await fetch("http://localhost:5000/api/schedule-reminder", {
+    const res = await fetch("http://localhost:5000/api/reminder/schedule-reminder", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
