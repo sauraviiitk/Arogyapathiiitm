@@ -1,4 +1,4 @@
-**Arogyapath – Personalized Mental Wellness & Healing Platform**
+## **Arogyapath – Personalized Mental Wellness & Healing Platform** ##
 Arogyapath is a holistic mental health platform focused on patient care, offering features like an AI-powered depression test, a guided 10-day recovery plan, spiritual healing through mantras, bhajans, and yoga, mood check AI, Gemini-powered thought reframing, a relaxing canvas drawing tool, and Letter to Future Me journaling.
 
 Patients can also use an Emotional Time Machine, get medicine reminders via email, and join our real-time community chat – Together We Rise. On the doctor side, professionals can manage their profiles, view connected patients, access shared history, and use a built-in prescription analyzer.
@@ -15,7 +15,9 @@ Arogyapath blends technology and tradition to create a safe, inclusive, and pers
    - [🩺 **Doctor Panel Features**](#-Doctor-Panel-Features)  
 3. [🧰 **Tech Stack Used**](#-Tech-Stack-Used)  
 4. [📁 **Project Structure**](#-Project-Structure)  
-
+5. [⚙️ **Getting Started – Run Locally**](#-getting-started--run-locally)  
+6. [👩‍💻 **Contributors**](#-contributors) 
+7. [🧩 **Conclusion**](#-conclusion)
 ---
 
 ## 📌 **Project Overview**
@@ -72,8 +74,40 @@ Arogyapath is divided into two core panels – **Patient Panel** and **Doctor Pa
 
 ---
 
-## 📁 **Project Structure**
+## 📁 Project Structure
 
+```bash
+Arogyapathiiitm/
+├── Backend/
+│   ├── node_modules/
+│   ├── routes/
+│   ├── package.json
+│   ├── package-lock.json
+│   └── server.js
+│
+├── frontend/
+│   ├── node_modules/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── Context/
+│   │   ├── depression/
+│   │   ├── locales/
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .gitignore
+│   ├── index.html
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   ├── vite.config.js
+│   └── README.md
+
+```
 
 ## ⚙️ **Getting Started – Run Locally**
 ### 🔧 Clone the Repository
@@ -87,8 +121,25 @@ npm run dev
 
 
 cd Backened
+## Backend Dependencies
+npm install axios cors express install node-cron node-fetch nodemailer npm openai ws 
+node server.js
+```
+---
+## 👩‍💻 **Contributors**
 
+- **Saurav Kumar** – Developer  
+- **Muskan Agrawal** – UI/UX Design, Project Management
+- **Akshita Kumari** –Developer
 
+---
 
+## 🧩 Conclusion
 
+Mental health is one of the most pressing challenges of our generation, yet remains underserved in terms of personalized, accessible, and holistic care. **Arogyapath** bridges this gap by blending **modern technology** (like AI and real-time systems) with **traditional healing practices** (like mantras, yoga, and community storytelling).
 
+By providing patients with tools to express, reflect, track, and heal—and offering doctors structured access to patient histories and intelligent insights—we aim to **empower healing from both ends**.
+
+Arogyapath isn't just a platform; it's a movement toward making mental health care **inclusive, affordable, and truly transformative** for all.
+
+Together, we rise. 🌱
