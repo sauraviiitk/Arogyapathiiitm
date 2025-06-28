@@ -156,6 +156,10 @@ const NavbarWithSidebar = () => {
               >
                 Find a Doctor
               </div>
+              <div className="hover:text-blue-600 cursor-pointer" onClick={()=>{
+                navigate("/home-depression")
+                setSidebarOpen(false);
+              }}>Depression test</div>
             </div>
 
             <div className="flex items-center gap-4 relative">

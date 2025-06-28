@@ -66,6 +66,51 @@ function Home() {
           Take the Depression Test
         </button>
       </motion.div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mt-10">
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/letter")}
+        >
+          <h3 className="text-xl font-semibold text-indigo-700 mb-2">Letter to Future Me</h3>
+          <p className="text-gray-600">
+            Write a letter to your future self – what do you hope, dream, or fear?
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/time-machine")}
+        >
+          <h3 className="text-xl font-semibold text-purple-700 mb-2">Emotional Time Machine</h3>
+          <p className="text-gray-600">Revisit a past emotion and observe your growth.</p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/reframe")}
+        >
+          <h3 className="text-xl font-semibold text-rose-700 mb-2">Reframe a Negative Thought</h3>
+          <p className="text-gray-600">
+            Challenge and positively reframe something you’re struggling with.
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/mood-ai")}
+        >
+          <h3 className="text-xl font-semibold text-green-700 mb-2">
+            Mood Check-in + AI Reflection
+          </h3>
+          <p className="text-gray-600">
+            Track your mood and get thoughtful responses from an AI guide.
+          </p>
+        </motion.div>
+      </div>
     </div>
   );
 }
