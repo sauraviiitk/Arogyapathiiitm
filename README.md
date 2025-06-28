@@ -16,8 +16,10 @@ Arogyapath blends technology and tradition to create a safe, inclusive, and pers
 3. [🧰 **Tech Stack Used**](#-Tech-Stack-Used)  
 4. [📁 **Project Structure**](#-Project-Structure)  
 5. [⚙️ **Getting Started – Run Locally**](#-getting-started--run-locally)  
+9. [🔮 **Future Scope**](#-future-scope)
 6. [👩‍💻 **Contributors**](#-contributors) 
 7. [🧩 **Conclusion**](#-conclusion)
+
 ---
 
 ## 📌 **Project Overview**
@@ -33,6 +35,16 @@ According to the **NCRB 2021** report, over **1.64 lakh people** in India die by
  ## Our Solution ##
 
 **Arogyapath** is a personalized mental wellness platform that combines **AI tools**, **spiritual healing**, and **community support** to address the root causes of mental health challenges.
+
+## 🎯 Target Audience
+
+- 🧑‍🎓 Students & working professionals dealing with stress or burnout  
+- 🧘 Individuals facing depression or emotional struggles  
+- 👩‍⚕️ Mental health professionals seeking better patient tools  
+- 🌐 Users in rural or underserved areas with limited care access  
+- 🌍 People who value spiritual healing (yoga, mantras, bhajans)
+
+---
 
 ## ✨ **Key Features**
 
@@ -125,6 +137,19 @@ cd Backened
 npm install axios cors express install node-cron node-fetch nodemailer npm openai ws 
 node server.js
 ```
+---
+
+## 🔮 Future Scope
+
+- 📱 Launch a mobile app version for broader accessibility  
+- 🌐 Add support for more Indian regional languages  
+- 🤖 Integrate advanced emotion-aware AI for better interaction  
+- 🏥 Connect with certified mental health NGOs and institutions  
+- 🎥 Include video therapy or meditation sessions  
+- 📊 Use AI to generate weekly wellness reports and suggestions  
+- 🧠 Develop a self-help recommendation engine based on user mood history  
+- 🔒 Strengthen data privacy and encryption for mental health records
+
 ---
 ## 👩‍💻 **Contributors**
 
