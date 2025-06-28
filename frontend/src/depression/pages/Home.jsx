@@ -126,77 +126,66 @@ function Home() {
           transition={{ duration: 2, delay: 2, repeat: Infinity, repeatType: "reverse" }}
         />
 
-        <div className="backdrop-blur-sm bg-white/30 p-8 sm:p-12 rounded-3xl shadow-xl border border-white/20">
-          <motion.div
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-8"
-          >
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/80 rounded-full shadow-lg mb-6">
-              <FiActivity className="text-indigo-600 text-3xl" />
-            </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 mb-4 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
-              Welcome to ArogyaPath
-            </h1>
-            <p className="text-sm text-indigo-500 font-semibold tracking-wide uppercase">
-              Your Mental Well-being Companion
-            </p>
-          </motion.div>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+      >
+        <button
+          onClick={ChangeDatabase}
+          className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-lg font-medium shadow-lg transition-all duration-300"
+        >
+          Take the Depression Test
+        </button>
+      </motion.div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl mt-10">
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/letter")}
+        >
+          <h3 className="text-xl font-semibold text-indigo-700 mb-2">Letter to Future Me</h3>
+          <p className="text-gray-600">
+            Write a letter to your future self – what do you hope, dream, or fear?
+          </p>
+        </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto mb-10"
-          >
-            Begin your personalized journey to better mental health with our clinically-validated depression assessment and tailored 10-day recovery program.
-          </motion.p>
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/time-machine")}
+        >
+          <h3 className="text-xl font-semibold text-purple-700 mb-2">Emotional Time Machine</h3>
+          <p className="text-gray-600">Revisit a past emotion and observe your growth.</p>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <button
-              onClick={ChangeDatabase}
-              className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl text-lg font-semibold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-xl hover:-translate-y-1"
-            >
-              Take the Depression Test
-              <FiArrowRight className="text-xl" />
-            </button>
-            
-            <button
-              onClick={() => navigate("/about")}
-              className="px-8 py-4 bg-white/90 hover:bg-white text-indigo-600 border border-indigo-100 rounded-xl text-lg font-semibold shadow-lg transition-all duration-300 flex items-center justify-center gap-2 hover:shadow-xl hover:-translate-y-1"
-            >
-              Learn More
-            </button>
-          </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/reframe")}
+        >
+          <h3 className="text-xl font-semibold text-rose-700 mb-2">Reframe a Negative Thought</h3>
+          <p className="text-gray-600">
+            Challenge and positively reframe something you’re struggling with.
+          </p>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.6 }}
-            className="mt-12 text-sm text-gray-500 flex flex-wrap justify-center gap-4"
-          >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              <span>Confidential</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-              <span>Clinically Validated</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-              <span>Personalized</span>
-            </div>
-          </motion.div>
-        </div>
+        <motion.div
+          whileHover={{ scale: 1.03 }}
+          className="bg-white p-6 rounded-2xl shadow-xl border border-indigo-100 cursor-pointer"
+          onClick={() => navigate("/tools/mood-ai")}
+        >
+          <h3 className="text-xl font-semibold text-green-700 mb-2">
+            Mood Check-in + AI Reflection
+          </h3>
+          <p className="text-gray-600">
+            Track your mood and get thoughtful responses from an AI guide.
+          </p>
+        </motion.div>
+      </div>
       </div>
     </div>
   );
 }
 export default Home;
+
