@@ -210,7 +210,9 @@ useEffect(() => {
           <FaUserCircle
             size={45}
             onClick={() => {
-              navigate(user ? "/account-detail" : "/choice");
+              if (!user) {
+              navigate("/choice");
+              }
               setSidebarOpen(false);
             }}
             className="text-gray-600 cursor-pointer"
