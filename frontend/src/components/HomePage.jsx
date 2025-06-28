@@ -68,6 +68,7 @@ import Footer from "./Footer";
 import FloatingChatbotIcon from "./FloatingChatbotIcon"; // make sure this is correctly imported
 import { useFirebase } from "../Context/Firebase";
 import { useUserRole } from "../Context/UserContext";
+import CommunityFeed from "../depression/community/PostInput";
 const HomePage = () => {
   // const { role } = useParams(); // URL like /home/patient or /home/doctor
     const { role } = useUserRole();
@@ -106,7 +107,8 @@ const { user } = useFirebase();
 
       <AboutUsSection />
       <TestimonialsSection />
-      <CommunityForum />
+      {/* <CommunityForum /> */}
+      <CommunityFeed/>
       <Footer />
 
       {/* Only show chatbot to patients
