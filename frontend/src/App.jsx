@@ -46,10 +46,7 @@ import ReframeNegativeThought from './depression/components/ReframeNegativeThoug
 import MoodCheckAI from './depression/components/MoodCheckAI'
 import HealthDashboard from './components/HealthDashboard'
 
-import SendMessage from './depression/community/PostInput'
-import LiveMessages from './depression/community/LiveFeed'
-import MessageSender from './depression/community/PostInput'
-import MessageList from './depression/community/LiveFeed'
+
 import CommunityFeed from './depression/community/PostInput'
 
 function App() {
@@ -125,13 +122,9 @@ function App() {
           }
           
         />
-        <Route
-          path="/take"
-          element={
-            <MessageList/>
-          }
+        
           
-        />
+        
       </Routes>
      <ToastContainer/>
     </Router>

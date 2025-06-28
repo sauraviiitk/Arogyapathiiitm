@@ -19,7 +19,9 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <FirebaseProvider>
       <UserRoleProvider>
-         <App />
+       
+          <App/>
+       
       </UserRoleProvider>
     </FirebaseProvider>  
   </StrictMode>,
