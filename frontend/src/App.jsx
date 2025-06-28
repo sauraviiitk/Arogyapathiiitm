@@ -45,6 +45,7 @@ import EmotionalTimeMachine from './depression/components/EmotionalTimeMachine'
 import ReframeNegativeThought from './depression/components/ReframeNegativeThought'
 import MoodCheckAI from './depression/components/MoodCheckAI'
 import HealthDashboard from './components/HealthDashboard'
+import LetterHistory from './depression/components/LetterHistory'
 
 import SendMessage from './depression/community/PostInput'
 import LiveMessages from './depression/community/LiveFeed'
@@ -71,7 +72,6 @@ function App() {
         <Route path='/account-detail' element={<AccountDetail/>} />
         <Route path='/choice' element={<Choice/>}/>
         <Route path="/update-info" element={<DoctorUpdateInfo/>}/>
-        
         <Route path='/find-doctor' element={<FindDoctor/>} />
         <Route path="/patient-appointments" element={<PatientAppointmentDetails/>}/>
         <Route path="/Doctor-side-appointments" element={<DoctorPanelAppointment/>}/>
@@ -82,6 +82,7 @@ function App() {
         <Route path='/medicalRecordOfPatient' element={<MedicalRecord/>}/>
         <Route  path='/canva' element={<Canva/>}/>
         <Route path="/home-Depression" element={<Home/>} />
+        <Route path='/Letter-history' element={<LetterHistory/>}/>
         <Route
           path="/test"
           element={<DepressionTest/>}

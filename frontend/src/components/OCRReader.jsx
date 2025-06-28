@@ -115,7 +115,9 @@ const OCRReader = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-200 via-indigo-200 to-blue-100 flex items-center justify-center px-4 py-10">
+    // <div className="min-h-screen bg-gradient-to-br from-blue-200 via-indigo-200 to-blue-100 flex items-center justify-center px-4 py-10">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-200 to-blue-100 flex items-center justify-center px-4 py-10">
+
       <div className="w-full max-w-4xl bg-white/60 backdrop-blur-xl rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.15)] p-10 space-y-8 border border-white/30">
         {/* Heading */}
         <h1 className="text-3xl md:text-4xl font-extrabold text-center text-blue-900 tracking-tight">

@@ -1,6 +1,10 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { db, auth } from '../../Context/Firebase'; // Adjust the path as needed
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import { FaPaperPlane } from 'react-icons/fa';
 
 const emotionTags = ['Anxious', 'Hopeless', 'Numb', 'Optimistic', 'Lonely', 'Hopeful', 'Tired'];
@@ -13,8 +17,39 @@ const prompts = [
 const LetterToFutureMe = () => {
   const [selectedEmotion, setSelectedEmotion] = useState('');
   const [letter, setLetter] = useState('');
+  const [privacy, setPrivacy] = useState('private');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const title="💌 Letter to Future Me";
+  const handleSaveLetter = async () => {
+    const user = auth.currentUser;
 
-  const title = "💌 Letter to Future Me";
+    if (!user) return toast.error("Please login to save your letter.");
+    if (!letter.trim()) return toast.error("Please write your letter.");
+    if (!selectedEmotion) return toast.error("Please select how you're feeling.");
+
+    try {
+      setLoading(true);
+      const letterRef = doc(db, "letters", `${user.uid}_${Date.now()}`);
+      await setDoc(letterRef, {
+        uid: user.uid,
+        emotion: selectedEmotion,
+        letter: letter.trim(),
+        createdAt: serverTimestamp(),
+        privacy,
+      });
+
+      toast.success("Letter saved securely!", { position: 'top-center' });
+      setLetter('');
+      setSelectedEmotion('');
+      navigate('/Letter-history');
+    } catch (error) {
+      console.error("Error saving letter: ", error);
+      toast.error("Failed to save letter.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-blue-100 to-blue-200 flex items-center justify-center px-4 py-12">
@@ -109,7 +144,7 @@ const LetterToFutureMe = () => {
             boxShadow: "0 0 10px rgba(59, 130, 246, 0.6)",
           }}
           whileTap={{ scale: 0.97 }}
-          onClick={() => alert('Letter saved securely!')}
+          onClick={handleSaveLetter}
           className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg text-lg flex items-center justify-center gap-2 mx-auto w-fit cursor-pointer transition-all"
         >
           <FaPaperPlane className="text-white" />
