@@ -1,24 +1,53 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { db, auth } from '../../Context/Firebase'; // Adjust the path as needed
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 
-const emotionTags = [
-  'Anxious', 'Hopeless', 'Numb', 'Optimistic', 'Lonely', 'Hopeful', 'Tired'
-];
-
+const emotionTags = ['Anxious', 'Hopeless', 'Numb', 'Optimistic', 'Lonely', 'Hopeful', 'Tired'];
 const prompts = [
   "What do you hope will be different?",
   "What are you proud of right now?",
   "What’s been hard, but you’ve survived?"
 ];
 
-const futureOptions = ['1 Month', '3 Months', '6 Months', '1 Year'];
-
 const LetterToFutureMe = () => {
   const [selectedEmotion, setSelectedEmotion] = useState('');
   const [letter, setLetter] = useState('');
-  const [selectedPrompt, setSelectedPrompt] = useState('');
-  const [schedule, setSchedule] = useState('');
   const [privacy, setPrivacy] = useState('private');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSaveLetter = async () => {
+    const user = auth.currentUser;
+
+    if (!user) return toast.error("Please login to save your letter.");
+    if (!letter.trim()) return toast.error("Please write your letter.");
+    if (!selectedEmotion) return toast.error("Please select how you're feeling.");
+
+    try {
+      setLoading(true);
+      const letterRef = doc(db, "letters", `${user.uid}_${Date.now()}`);
+      await setDoc(letterRef, {
+        uid: user.uid,
+        emotion: selectedEmotion,
+        letter: letter.trim(),
+        createdAt: serverTimestamp(),
+        privacy,
+      });
+
+      toast.success("Letter saved securely!", { position: 'top-center' });
+      setLetter('');
+      setSelectedEmotion('');
+      navigate('/Letter-history');
+    } catch (error) {
+      console.error("Error saving letter: ", error);
+      toast.error("Failed to save letter.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-100 flex items-center justify-center px-4 py-12">
@@ -73,24 +102,28 @@ const LetterToFutureMe = () => {
         <div>
           <textarea
             value={letter}
-            onChange={(e) =>setLetter(e.target.value)}
+            onChange={(e) => setLetter(e.target.value)}
             rows={8}
             placeholder="Write your message to your future self here..."
             className="w-full p-5 text-gray-800 rounded-xl shadow-inner border border-gray-300 focus:ring-4 focus:ring-indigo-200 resize-none placeholder-gray-500"
           />
         </div>
 
-       
+        {/* Save Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => alert('Letter saved securely!')}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md text-lg"
+          disabled={loading}
+          onClick={handleSaveLetter}
+          className={`w-full ${
+            loading ? 'bg-indigo-300' : 'bg-indigo-600 hover:bg-indigo-700'
+          } text-white font-semibold py-3 px-6 rounded-xl shadow-md text-lg`}
         >
-          Save Letter
+          {loading ? "Saving..." : "Save Letter"}
         </motion.button>
       </motion.div>
     </div>
   );
 };
+
 export default LetterToFutureMe;

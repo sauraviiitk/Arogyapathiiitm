@@ -23,7 +23,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Context/Firebase";
 import { Home } from "lucide-react";
 import { BellPlus } from "lucide-react";
-
+import { query, where, getDocs, collection } from "firebase/firestore";
 // ... imports remain the same
 
 const NavbarWithSidebar = () => {
@@ -34,7 +34,9 @@ const NavbarWithSidebar = () => {
   const navigate = useNavigate();
   const { user } = useFirebase();
   const [userDetail, setUserDetail] = useState("");
-  useEffect(() => {
+  const [hasLetter, setHasLetter] = useState(false);
+
+useEffect(() => {
   const fetchData = async () => {
     try {
       if (user && role) {
@@ -43,6 +45,18 @@ const NavbarWithSidebar = () => {
         if (docSnap.exists()) {
           setUserDetail(docSnap.data());
         }
+
+        // 📨 Check if letter exists
+        const letterQuery = query(
+          collection(db, "letters"),
+          where("uid", "==", user.uid)
+        );
+        const letterSnap = await getDocs(letterQuery);
+        if (!letterSnap.empty) {
+          setHasLetter(true);
+        } else {
+          setHasLetter(false);
+        }
       }
     } catch (error) {
       console.error("FetchData error:", error.message);
@@ -50,7 +64,6 @@ const NavbarWithSidebar = () => {
   };
 
   fetchData();
-
   const handleFocus = () => {
     fetchData();
   };
@@ -69,6 +82,7 @@ const NavbarWithSidebar = () => {
     window.removeEventListener("storage", handleStorage);
   };
 }, [user, role]);
+
 
   // console.log("I am user Details",user,role);
   // console.log("User Detail",userDetail);
@@ -331,16 +345,19 @@ const NavbarWithSidebar = () => {
       Medical Records
     </button>
 
-     <button
-           onClick={() => {
-             navigate("/consultation");
-             setSidebarOpen(false);
-           }}
-           className="flex items-center gap-4 p-4 rounded-md bg-white hover:bg-blue-100 shadow-md text-gray-700 font-semibold text-lg"
-         >
-           <Video size={24} className="text-blue-600" />
-           Online Consultation
-         </button>
+    {hasLetter && (
+  <button
+    onClick={() => {
+      navigate("/Letter-history");
+      setSidebarOpen(false);
+    }}
+    className="flex items-center gap-4 p-4 rounded-md bg-white hover:bg-blue-100 shadow-md text-gray-700 font-semibold text-lg"
+  >
+    <History size={24} className="text-blue-600" />
+    Letter History
+  </button>
+)}
+
      
          <button
            onClick={() => {
@@ -360,9 +377,9 @@ const NavbarWithSidebar = () => {
            className="flex items-center gap-4 p-4 rounded-md bg-white hover:bg-blue-100 shadow-md text-gray-700 font-semibold text-lg"
          >
            <Activity size={24} className="text-blue-600" />
-           Health Tracker
+           Canva
          </button>
-     
+         
          <button
            onClick={() => {
              navigate("/prescriptions");

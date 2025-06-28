@@ -47,7 +47,6 @@ function Home() {
       <div className="absolute inset-0 z-0">
         <Particles
           id="tsparticles"
-          init={particlesInit}
           options={{
             fpsLimit: 60,
             interactivity: {

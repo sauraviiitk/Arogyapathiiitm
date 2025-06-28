@@ -229,7 +229,7 @@ function DepressionTest() {
                   </button>
                 </div>
 
-                {totalScore >= 15 && (
+                {/* {totalScore >= 15 && (
                   <div className="mt-6 p-4 bg-red-50 rounded-lg border border-red-200 text-left">
                     <h4 className="font-bold text-red-700 mb-2">Important Notice</h4>
                     <p className="text-red-600 text-sm">
@@ -243,7 +243,7 @@ function DepressionTest() {
                       View local resources →
                     </button>
                   </div>
-                )}
+                )} */}
               </motion.div>
             )}
           </AnimatePresence>
