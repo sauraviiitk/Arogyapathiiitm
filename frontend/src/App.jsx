@@ -43,12 +43,12 @@ import ReliefPage from './depression/pages/ReliefPage'
 import LetterToFutureMe from './depression/components/LetterToFutureMe'
 import EmotionalTimeMachine from './depression/components/EmotionalTimeMachine'
 import ReframeNegativeThought from './depression/components/ReframeNegativeThought'
-import MoodCheckAI from './depression/components/MoodCheckAI'
 import HealthDashboard from './components/HealthDashboard'
 import LetterHistory from './depression/components/LetterHistory'
 
 
 import CommunityFeed from './depression/community/PostInput'
+import MoodCheckIn from './depression/components/MoodCheckIn'
 
 function App() {
   
@@ -112,7 +112,7 @@ function App() {
          <Route
           path="/tools/mood-ai"
           element={
-            <MoodCheckAI/>
+            <MoodCheckIn/>
           }
           
         />
