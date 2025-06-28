@@ -21,7 +21,6 @@ import AppointmentPage from './components/AppointmentPage'
 import HomePage from './components/HomePage'
 import BhajansPage from './components/BhajansPage'  
 import MantrasPage from './components/MantrasPage'
-import HealthTracker from './components/HealthTracker'
 import AuthPagePatient from './components/AuthPagePatient'
 import YogaPage from './components/YogaPage'
 import AccountDetail from './components/AccountDetail'
@@ -45,6 +44,7 @@ import LetterToFutureMe from './depression/components/LetterToFutureMe'
 import EmotionalTimeMachine from './depression/components/EmotionalTimeMachine'
 import ReframeNegativeThought from './depression/components/ReframeNegativeThought'
 import MoodCheckAI from './depression/components/MoodCheckAI'
+import HealthDashboard from './components/HealthDashboard'
 
 function App() {
   
@@ -58,13 +58,14 @@ function App() {
         <Route path="/book-appointment" element={<AppointmentPage />} />
         <Route path="/bhajans" element={<BhajansPage />} />
         <Route path="/mantras" element={<MantrasPage />} />
-        <Route path="/health-tracker" element={<HealthTracker />} />
+        <Route path="/health-tracker" element={<HealthDashboard />} />
         <Route path="/auth/patient" element={<AuthPagePatient />} />
         <Route path="/auth/doctor" element={<AuthPageDoctor/>}/>
         <Route path="/yoga" element={<YogaPage/>}/>
         <Route path='/account-detail' element={<AccountDetail/>} />
         <Route path='/choice' element={<Choice/>}/>
         <Route path="/update-info" element={<DoctorUpdateInfo/>}/>
+        
         <Route path='/find-doctor' element={<FindDoctor/>} />
         <Route path="/patient-appointments" element={<PatientAppointmentDetails/>}/>
         <Route path="/Doctor-side-appointments" element={<DoctorPanelAppointment/>}/>

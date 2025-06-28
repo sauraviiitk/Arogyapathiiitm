@@ -1,4 +1,3 @@
-// src/OCRReader.jsx
 import React, { useState } from 'react';
 import { createWorker } from 'tesseract.js';
 import ReactMarkdown from 'react-markdown';
@@ -18,7 +17,7 @@ function OCRReader() {
   setOcrText(text);
 
   try {
-    const response = await fetch('http://localhost:5000/api/analyze-prescription', {
+    const response = await fetch('http://localhost:5000/api/prescription/analyze-prescription', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

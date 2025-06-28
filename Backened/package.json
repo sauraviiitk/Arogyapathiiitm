@@ -8,5 +8,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "node-cron": "^4.1.1",
+    "nodemailer": "^7.0.3",
+    "openai": "^5.8.2"
+  }
 }
