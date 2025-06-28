@@ -44,12 +44,9 @@ function DepressionTest() {
       setCurrentQ(currentQ + 1);
     } else {
       setSubmitted(true);
-      setShowConfetti(true);
       const total = newAnswers.reduce((a, b) => a + b, 0);
       await saveScoreToFirebase(total);
-      
-      // Hide confetti after 5 seconds
-      setTimeout(() => setShowConfetti(false), 5000);
+
     }
   };
 

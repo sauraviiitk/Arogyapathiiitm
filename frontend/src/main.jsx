@@ -14,11 +14,12 @@ import './index.css'
 import App from './App.jsx'
 import { FirebaseProvider } from './Context/Firebase.jsx'
 import { UserRoleProvider } from './Context/UserContext.jsx'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <FirebaseProvider>
       <UserRoleProvider>
-        <App />
+         <App />
       </UserRoleProvider>
     </FirebaseProvider>  
   </StrictMode>,
