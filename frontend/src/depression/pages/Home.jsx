@@ -559,8 +559,7 @@ function Home() {
       {/* Particle Background */}
       <div className="absolute inset-0 z-0">
         <Particles
-          id="particles"
-          init={particlesInit}
+          id="tsparticles"
           options={{
             fpsLimit: 60,
             particles: {
