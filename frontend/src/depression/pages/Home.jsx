@@ -4,9 +4,16 @@ import { motion } from 'framer-motion';
 import { db, auth } from '../../Context/Firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import { FiArrowRight, FiActivity } from 'react-icons/fi';
+import Particles from 'react-tsparticles';
+import { loadFull } from 'tsparticles';
 
 function Home() {
   const navigate = useNavigate();
+
+  const particlesInit = async (main) => {
+    await loadFull(main);
+  };
 
   const ChangeDatabase = async () => {
     const user = auth.currentUser;
@@ -19,7 +26,7 @@ function Home() {
           startedAt: new Date(),
           score: null,
           status: "started",
-          name:user.displayName,
+          name: user.displayName,
         });
         console.log("✅ Score-Depression entry created");
         console.log(user)
@@ -35,24 +42,89 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-100 to-purple-200 text-center px-4 py-10">
-      <motion.h1
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-5xl sm:text-6xl font-extrabold text-gray-800 mb-6 leading-tight"
-      >
-        Welcome to ArogyaPath
-      </motion.h1>
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-50 to-indigo-100 text-center px-4 py-10 relative overflow-hidden">
+      {/* Animated Background Particles */}
+      <div className="absolute inset-0 z-0">
+        <Particles
+          id="tsparticles"
+          init={particlesInit}
+          options={{
+            fpsLimit: 60,
+            interactivity: {
+              events: {
+                onHover: {
+                  enable: true,
+                  mode: "repulse",
+                },
+              },
+              modes: {
+                repulse: {
+                  distance: 100,
+                  duration: 0.4,
+                },
+              },
+            },
+            particles: {
+              color: {
+                value: "#6366f1",
+              },
+              links: {
+                color: "#818cf8",
+                distance: 150,
+                enable: true,
+                opacity: 0.3,
+                width: 1,
+              },
+              collisions: {
+                enable: true,
+              },
+              move: {
+                direction: "none",
+                enable: true,
+                outModes: {
+                  default: "bounce",
+                },
+                random: false,
+                speed: 1,
+                straight: false,
+              },
+              number: {
+                density: {
+                  enable: true,
+                  area: 800,
+                },
+                value: 60,
+              },
+              opacity: {
+                value: 0.5,
+              },
+              shape: {
+                type: "circle",
+              },
+              size: {
+                value: { min: 1, max: 3 },
+              },
+            },
+            detectRetina: true,
+          }}
+        />
+      </div>
 
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.2 }}
-        className="text-lg sm:text-xl text-gray-700 max-w-2xl mb-8"
-      >
-        Your companion in managing mental well-being. Take the depression self-assessment and begin your personalized 10-day recovery journey.
-      </motion.p>
+      <div className="relative z-10 max-w-6xl w-full">
+        {/* Animated Blob */}
+        <motion.div 
+          className="absolute -top-20 -left-20 w-64 h-64 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.7 }}
+          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+        />
+        
+        <motion.div 
+          className="absolute -bottom-20 -right-20 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.7 }}
+          transition={{ duration: 2, delay: 2, repeat: Infinity, repeatType: "reverse" }}
+        />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
@@ -111,8 +183,9 @@ function Home() {
           </p>
         </motion.div>
       </div>
+      </div>
     </div>
   );
 }
-
 export default Home;
+
