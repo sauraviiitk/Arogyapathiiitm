@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaRegSmileBeam, FaRedoAlt } from 'react-icons/fa';
@@ -6,7 +5,31 @@ import { FaRegSmileBeam, FaRedoAlt } from 'react-icons/fa';
 const EmotionalTimeMachine = () => {
   const [memory, setMemory] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
   const title = "🧠 Emotional Time Machine";
+
+  const handleReflect = async () => {
+    if (!memory.trim()) return;
+    setLoading(true);
+    try {
+      const res = await fetch('http://localhost:5000/api/emotion-memory', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ memory }),
+      });
+
+      const data = await res.json();
+      setResponse(data.analysis || '⚠️ No insight generated.');
+      setSubmitted(true);
+    } catch (error) {
+      console.error("❌ Error:", error);
+      setResponse('❌ Failed to connect to Emotional Time Machine.');
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-blue-100 to-blue-200 flex items-center justify-center px-4 py-12">
@@ -67,13 +90,13 @@ const EmotionalTimeMachine = () => {
                 boxShadow: "0 0 10px rgba(59, 130, 246, 0.6)",
               }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => {
-                if (memory.trim()) setSubmitted(true);
-              }}
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg text-lg flex items-center justify-center gap-2 mx-auto w-fit cursor-pointer transition-all"
+              onClick={handleReflect}
+              className={`${
+                loading ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+              } bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg text-lg flex items-center justify-center gap-2 mx-auto w-fit transition-all`}
             >
               <FaRegSmileBeam className="text-white" />
-              Reflect
+              {loading ? "Reflecting..." : "Reflect"}
             </motion.div>
           </>
         ) : (
@@ -81,18 +104,23 @@ const EmotionalTimeMachine = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="text-center space-y-4"
+            className="text-center space-y-6"
           >
             <h2 className="text-2xl font-semibold text-blue-800">
-              ✅ Reflection Saved!
+              💭 Emotional Reflection
             </h2>
-            <p className="text-blue-700">Your emotional memory has been securely recorded.</p>
+
+            <div className="bg-white rounded-xl shadow-inner p-6 text-left text-gray-800 whitespace-pre-wrap max-h-[400px] overflow-y-auto border border-blue-100">
+              {response}
+            </div>
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
                 setSubmitted(false);
                 setMemory('');
+                setResponse('');
               }}
               className="bg-blue-600 text-white px-6 py-3 rounded-xl text-md shadow-md hover:bg-blue-700 flex items-center gap-2 mx-auto"
             >
