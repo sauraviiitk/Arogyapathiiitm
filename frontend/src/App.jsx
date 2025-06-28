@@ -47,6 +47,11 @@ import MoodCheckAI from './depression/components/MoodCheckAI'
 import HealthDashboard from './components/HealthDashboard'
 import LetterHistory from './depression/components/LetterHistory'
 
+import SendMessage from './depression/community/PostInput'
+import LiveMessages from './depression/community/LiveFeed'
+import MessageSender from './depression/community/PostInput'
+import MessageList from './depression/community/LiveFeed'
+
 function App() {
   
 
@@ -111,8 +116,22 @@ function App() {
           element={
             <MoodCheckAI/>
           }
+          
         />
-        
+        <Route
+          path="/community"
+          element={
+            <MessageSender/>
+          }
+          
+        />
+        <Route
+          path="/take"
+          element={
+            <MessageList/>
+          }
+          
+        />
       </Routes>
      <ToastContainer/>
     </Router>

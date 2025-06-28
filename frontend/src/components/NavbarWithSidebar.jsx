@@ -346,19 +346,17 @@ useEffect(() => {
     </button>
 
     {hasLetter && (
-  <button
+    <button
     onClick={() => {
       navigate("/Letter-history");
       setSidebarOpen(false);
     }}
     className="flex items-center gap-4 p-4 rounded-md bg-white hover:bg-blue-100 shadow-md text-gray-700 font-semibold text-lg"
-  >
+    >
     <History size={24} className="text-blue-600" />
     Letter History
   </button>
-)}
-
-     
+    )}
          <button
            onClick={() => {
              navigate("/health-tracker");
@@ -377,7 +375,7 @@ useEffect(() => {
            className="flex items-center gap-4 p-4 rounded-md bg-white hover:bg-blue-100 shadow-md text-gray-700 font-semibold text-lg"
          >
            <Activity size={24} className="text-blue-600" />
-           Canva
+           Canvas
          </button>
          
          <button
