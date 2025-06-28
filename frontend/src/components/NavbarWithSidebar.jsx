@@ -210,7 +210,9 @@ useEffect(() => {
           <FaUserCircle
             size={45}
             onClick={() => {
-              navigate(user ? "/account-detail" : "/choice");
+              if (!user) {
+              navigate("/choice");
+              }
               setSidebarOpen(false);
             }}
             className="text-gray-600 cursor-pointer"
@@ -283,20 +285,6 @@ useEffect(() => {
               Login / Signup
             </button>
           )}
-
-          {user && (
-            <button
-              onClick={() => {
-                navigate("/account-detail");
-                setSidebarOpen(false);
-              }}
-              className="flex items-center gap-4 p-4 rounded-md bg-white hover:bg-blue-100 shadow-md text-gray-700 font-semibold text-lg"
-            >
-              <UserCog size={24} className="text-blue-600" />
-              Account Settings
-            </button>
-          )}
-
           {user && role === "Doctor" && (
             <>
               <button
@@ -390,9 +378,32 @@ useEffect(() => {
          </button>
        </>
       )}
+         {user && (
+  <div className="mt-auto pt-6 border-t border-gray-300">
+    <button
+      onClick={async () => {
+        try {
+          await import("firebase/auth").then(({ getAuth, signOut }) => {
+            const auth = getAuth();
+            signOut(auth);
+          });
+          navigate("/choice");
+          setSidebarOpen(false);
+        } catch (error) {
+          console.error("Logout error:", error);
+        }
+      }}
+      className="flex items-center gap-4 p-4 rounded-md bg-red-50 hover:bg-red-100 shadow-md text-red-600 font-semibold text-lg w-full"
+    >
+      <X size={24} className="text-red-600" />
+      Logout
+    </button>
+  </div>
+)}
 
         </nav>
       </div>
+
     </div>
   );
 };
