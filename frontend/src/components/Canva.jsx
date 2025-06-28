@@ -172,7 +172,7 @@ const Canva= () => {
 
           {bgMusic && (
             <audio autoPlay loop>
-              <source src="/audio/shiva.mp3" type="audio/mpeg" />
+              <source src="/audio/calming.mp3" type="audio/mpeg" />
             </audio>
           )}
         </div>
