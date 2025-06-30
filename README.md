@@ -154,7 +154,7 @@ node server.js
 ## 👩‍💻 **Contributors**
 
 - **Saurav Kumar** – Developer  
-- **Muskan Agrawal** – UI/UX Design, Project Management
+- **Muskan Agrawal** – UI/UX Designer, Project Manager
 - **Akshita Kumari** –Developer
 
 ---
